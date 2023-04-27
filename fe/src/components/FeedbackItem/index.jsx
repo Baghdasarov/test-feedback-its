@@ -14,7 +14,7 @@ export const FeedbackItem = memo(
         <S.CommentWrapper>
           <S.Comment>Comment: {comment}</S.Comment>
           {!!photo && (
-            <S.FeedbackImg src={`${hostMachine}${photo}`} alt='feedback' />
+            <S.FeedbackImg src={`${photo}`} alt='feedback' />
           )}
         </S.CommentWrapper>
       </S.Root>

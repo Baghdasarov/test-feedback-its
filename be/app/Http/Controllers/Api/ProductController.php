@@ -9,7 +9,6 @@ use App\Http\Resources\Product\ProductResource;
 use App\Http\Resources\Product\ProductSingleResource;
 use App\Models\Product;
 use App\Services\ProductService;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {

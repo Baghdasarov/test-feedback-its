@@ -20,7 +20,7 @@ class FeedbackResource extends JsonResource
             'email' => $this->email,
             'comment' => $this->comment,
             'rating' => $this->rating,
-            'photo' => $this->photo,
+            'photo' => asset($this->photo),
             'date' => $this->created_at,
         ];
     }

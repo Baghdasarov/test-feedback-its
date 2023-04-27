@@ -29,7 +29,9 @@ class FeedbackController extends Controller
      */
     public function store(CreateFeedbackRequest $request): FeedbackResource
     {
-        $feedback = $this->feedbackService->create($request->validated());
+        $attributes = $this->feedbackService->prepareData($request);
+        $feedback = $this->feedbackService->create($attributes);
+
         return new FeedbackResource($feedback);
     }
 }

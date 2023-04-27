@@ -5,9 +5,10 @@ namespace App\Services;
 use App\Models\Feedback;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class FeedbackService
+class FeedbackService extends Service
 {
     /**
      * @return Collection
@@ -23,23 +24,21 @@ class FeedbackService
      */
     public function create(array $attributes): Model
     {
-        if (isset($attributes['photo'])) {
-            $attributes['photo'] = $this->uploadImage($attributes['photo']);
-        }
-
         return Feedback::query()->create($attributes);
     }
 
-    public function uploadImage ($photo)
+    /**
+     * @param Request $request
+     * @return Model
+     */
+    public function prepareData(Request $request): array
     {
-        try {
-            $photoName = time() . '.' . $photo->extension();
-            $photo->move(public_path('images'), $photoName);
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return null;
+        $data = $request->validated();
+
+        if ($request->file('photo')) {
+            $data['photo'] = $this->uploadMedia($request->file('photo'));
         }
 
-        return "/images/" . $photoName;
+        return $data;
     }
 }
